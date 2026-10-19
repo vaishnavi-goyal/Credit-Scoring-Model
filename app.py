@@ -417,81 +417,139 @@ if submitted:
             )
             st.markdown('</div>', unsafe_allow_html=True)
 
-        # Attractive interactive probability graph
-        probability_df = pd.DataFrame({
-            "Outcome": ["No default", "Default"],
-            "Probability (%)": [
-                no_default_probability * 100,
-                default_probability * 100
-            ]
-        })
+       
+# ---------------- INTERACTIVE PROBABILITY GRAPH ----------------
 
-        fig = go.Figure(
-            go.Bar(
-                x=probability_df["Outcome"],
-                y=probability_df["Probability (%)"],
-                marker=dict(
-                    color=["#4F8FE8", "#8B6CE8"],
-                    line=dict(color="#FFFFFF", width=1.5)
-                ),
-                text=[
-                    f"{value:.1f}%"
-                    for value in probability_df["Probability (%)"]
-                ],
-                textposition="outside",
-                textfont=dict(size=14, color="#35415C"),
-                hovertemplate=(
-                    "<b>%{x}</b><br>"
-                    "Probability: %{y:.2f}%<extra></extra>"
-                )
-            )
-        )
-
-        fig.update_layout(
-            title=dict(
-                text="Credit Default Probability",
-                font=dict(size=20, color="#202944")
-            ),
-            xaxis_title="Customer outcome",
-            yaxis_title="Probability (%)",
-            yaxis=dict(
-                range=[0, 110],
-                ticksuffix="%",
-                gridcolor="#E6EAF3",
-                zeroline=False
-            ),
-            xaxis=dict(
-                tickfont=dict(color="#35415C", size=13)
-            ),
-            paper_bgcolor="rgba(255,255,255,0)",
-            plot_bgcolor="rgba(255,255,255,0)",
-            font=dict(family="Arial", color="#35415C"),
-            margin=dict(l=15, r=15, t=65, b=25),
-            height=380,
-            showlegend=False
-        )
-
-        st.markdown("### 03 · Prediction analytics")
-        st.markdown(
-            '<p class="muted">Compare the estimated probabilities '
-            'for both possible outcomes.</p>',
-            unsafe_allow_html=True
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
-
-        st.caption(
-            "This is an educational estimate, not a guarantee of future "
-            "repayment behavior. Model confidence does not establish "
-            "creditworthiness or replace fair, regulated lending review."
-        )
-
-    except Exception as error:
-        st.error(f"Prediction could not be completed: {error}")
-
-st.markdown("---")
+st.markdown("### 03 · Prediction Analytics")
 st.markdown(
-    '<p class="muted">CreditGuard · Educational ML project · '
-    'Built with Python, scikit-learn, Plotly and Streamlit</p>',
+    """
+    <p style="color:#64718b; font-size:15px;">
+        Explore the estimated probability of each possible outcome.
+        Hover over the bars to view detailed values.
+    </p>
+    """,
     unsafe_allow_html=True
+)
+
+# Actual probabilities from the trained model
+probability_df = pd.DataFrame({
+    "Outcome": ["No Default", "Default"],
+    "Probability (%)": [
+        no_default_probability * 100,
+        default_probability * 100
+    ]
+})
+
+# Interactive bar chart
+fig = go.Figure()
+
+fig.add_trace(
+    go.Bar(
+        x=probability_df["Outcome"],
+        y=probability_df["Probability (%)"],
+        text=[
+            f"{value:.1f}%"
+            for value in probability_df["Probability (%)"]
+        ],
+        textposition="outside",
+        textfont=dict(
+            family="Arial",
+            size=16,
+            color="#111827"
+        ),
+        marker=dict(
+            color=["#4F8FE8", "#8B6CE8"],
+            line=dict(
+                color="#FFFFFF",
+                width=2
+            ),
+            cornerradius=8
+        ),
+        hovertemplate=(
+            "<b>%{x}</b><br>"
+            "Estimated probability: %{y:.2f}%"
+            "<extra></extra>"
+        ),
+        cliponaxis=False
+    )
+)
+
+# Layout and readable axis styling
+fig.update_layout(
+    title=dict(
+        text="Credit Default Probability",
+        x=0.02,
+        xanchor="left",
+        font=dict(
+            family="Arial",
+            size=22,
+            color="#111827"
+        )
+    ),
+    xaxis=dict(
+        title=dict(
+            text="Predicted outcome",
+            font=dict(size=14, color="#111827")
+        ),
+        tickfont=dict(size=14, color="#111827"),
+        showgrid=False,
+        zeroline=False,
+        fixedrange=True
+    ),
+    yaxis=dict(
+        title=dict(
+            text="Probability (%)",
+            font=dict(size=14, color="#111827")
+        ),
+        tickfont=dict(size=12, color="#111827"),
+        range=[0, 112],
+        dtick=20,
+        ticksuffix="%",
+        gridcolor="#E1E7F0",
+        gridwidth=1,
+        zeroline=False,
+        fixedrange=True
+    ),
+    paper_bgcolor="rgba(255,255,255,0)",
+    plot_bgcolor="rgba(255,255,255,0)",
+    font=dict(
+        family="Arial",
+        color="#111827",
+        size=13
+    ),
+    margin=dict(l=30, r=25, t=85, b=45),
+    height=430,
+    showlegend=False,
+    hoverlabel=dict(
+        bgcolor="#FFFFFF",
+        bordercolor="#D9DFF0",
+        font=dict(
+            family="Arial",
+            size=14,
+            color="#111827"
+        )
+    ),
+    bargap=0.48
+)
+
+# Display responsive interactive chart
+st.plotly_chart(
+    fig,
+    use_container_width=True,
+    config={
+        "displayModeBar": True,
+        "displaylogo": False,
+        "responsive": True,
+        "toImageButtonOptions": {
+            "format": "png",
+            "filename": "credit_probability_chart",
+            "height": 600,
+            "width": 1000,
+            "scale": 2
+        }
+    }
+)
+
+st.caption(
+    "Note: Probabilities are model estimates, not guarantees of future behavior."
 )
