@@ -418,9 +418,11 @@ if submitted:
             st.markdown('</div>', unsafe_allow_html=True)
 
        
+
 # ---------------- INTERACTIVE PROBABILITY GRAPH ----------------
 
 st.markdown("### 03 · Prediction Analytics")
+
 st.markdown(
     """
     <p style="color:#64718b; font-size:15px;">
@@ -431,7 +433,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Actual probabilities from the trained model
+# Create probability DataFrame using actual model predictions
 probability_df = pd.DataFrame({
     "Outcome": ["No Default", "Default"],
     "Probability (%)": [
@@ -440,7 +442,7 @@ probability_df = pd.DataFrame({
     ]
 })
 
-# Interactive bar chart
+# Create interactive graph
 fig = go.Figure()
 
 fig.add_trace(
@@ -462,8 +464,7 @@ fig.add_trace(
             line=dict(
                 color="#FFFFFF",
                 width=2
-            ),
-            cornerradius=8
+            )
         ),
         hovertemplate=(
             "<b>%{x}</b><br>"
@@ -474,7 +475,7 @@ fig.add_trace(
     )
 )
 
-# Layout and readable axis styling
+# Configure graph layout and readable labels
 fig.update_layout(
     title=dict(
         text="Credit Default Probability",
@@ -488,7 +489,7 @@ fig.update_layout(
     ),
     xaxis=dict(
         title=dict(
-            text="Predicted outcome",
+            text="Predicted Outcome",
             font=dict(size=14, color="#111827")
         ),
         tickfont=dict(size=14, color="#111827"),
@@ -517,7 +518,12 @@ fig.update_layout(
         color="#111827",
         size=13
     ),
-    margin=dict(l=30, r=25, t=85, b=45),
+    margin=dict(
+        l=30,
+        r=25,
+        t=85,
+        b=45
+    ),
     height=430,
     showlegend=False,
     hoverlabel=dict(
@@ -551,5 +557,6 @@ st.plotly_chart(
 )
 
 st.caption(
-    "Note: Probabilities are model estimates, not guarantees of future behavior."
+    "Note: Probabilities are model estimates, not guarantees "
+    "of future behavior."
 )
