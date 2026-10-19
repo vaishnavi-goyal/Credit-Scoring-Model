@@ -9,8 +9,9 @@ import streamlit as st
 
 # ---------------- PAGE CONFIG ----------------
 BASE_DIR = Path(__file__).parent
-MODEL_PATH = BASE_DIR / "models" / "credit_scoring_model.joblib"
-INFO_PATH = BASE_DIR / "models" / "model_info.json"
+
+MODEL_PATH = BASE_DIR / "credit_scoring_model.joblib"
+INFO_PATH = BASE_DIR / "model_info.json"
 
 st.set_page_config(
     page_title="CreditGuard | Credit Risk AI",
