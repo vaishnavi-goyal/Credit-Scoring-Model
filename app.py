@@ -20,9 +20,12 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+
 # ---------------- LIGHT THEME CSS ----------------
 st.markdown("""
 <style>
+
+/* Light background */
 .stApp {
     background:
         radial-gradient(ellipse at 5% 0%, #eee9ff 0%, transparent 42%),
@@ -30,110 +33,60 @@ st.markdown("""
         #f7f8fc;
     color: #202944;
 }
-.block-container {
-    max-width: 1180px;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-}
-header[data-testid="stHeader"] {
-    background: transparent;
-}
-#MainMenu, footer {
-    visibility: hidden;
-}
-.brand {
-    font-size: 25px;
-    font-weight: 800;
-    color: #202944;
-}
-.brand span {
-    color: #7655d9;
-}
-.hero {
-    padding: 35px 10px 25px;
-}
-.eyebrow {
-    color: #7655d9;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-.hero h1 {
-    font-size: clamp(32px, 5vw, 52px);
-    line-height: 1.15;
-    letter-spacing: -1.5px;
-    color: #202944;
-}
-.gradient {
-    background: linear-gradient(90deg, #7956d9, #3488db);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.muted {
-    color: #64718b;
-    line-height: 1.7;
-}
-.panel {
-    background: rgba(255,255,255,0.92);
-    border: 1px solid #e1e6f2;
-    border-radius: 18px;
-    padding: 22px;
-    box-shadow: 0 6px 22px rgba(49,65,100,0.06);
-}
-.result {
-    background: linear-gradient(140deg, #f0eaff, #e6f3ff);
-    border: 1px solid #d9d3fa;
-    border-radius: 18px;
-    padding: 25px;
-    text-align: center;
-}
+
+/* Metric cards */
 div[data-testid="stMetric"] {
-    background: #ffffff;
-    border: 1px solid #e0e6f2;
+    background: #ffffff !important;
+    border: 1px solid #dce3ef !important;
     border-radius: 13px;
-    padding: 15px;
-    box-shadow: 0 4px 15px rgba(49,65,100,0.04);
+    padding: 18px;
+    box-shadow: 0 4px 15px rgba(49, 65, 100, 0.05);
 }
-div[data-testid="stSelectbox"] label,
-div[data-testid="stNumberInput"] label {
-    color: #35415c;
-    font-weight: 600;
+
+/* Metric labels and values: dark and readable */
+div[data-testid="stMetric"] label,
+div[data-testid="stMetric"] label p,
+div[data-testid="stMetricValue"],
+div[data-testid="stMetricValue"] div,
+div[data-testid="stMetricValue"] p,
+div[data-testid="stMetricLabel"],
+div[data-testid="stMetricLabel"] p,
+div[data-testid="stMetricDelta"] {
+    color: #111827 !important;
+    -webkit-text-fill-color: #111827 !important;
+    opacity: 1 !important;
 }
+
+/* General text */
+h1, h2, h3, h4, p, label {
+    color: #202944;
+}
+
+/* Input fields */
 div[data-baseweb="select"] > div,
 div[data-testid="stNumberInput"] input {
-    background: #ffffff;
-    border-color: #d7deec;
-    color: #202944;
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-color: #d7deec !important;
     border-radius: 9px;
 }
+
+/* Buttons */
 .stButton > button,
 div[data-testid="stFormSubmitButton"] > button {
-    width: 100%;
-    min-height: 48px;
     background: linear-gradient(100deg, #7956d9, #438ce0);
-    color: white;
+    color: #ffffff !important;
     border: none;
     border-radius: 11px;
     font-weight: 700;
+    min-height: 48px;
 }
-.stButton > button:hover,
-div[data-testid="stFormSubmitButton"] > button:hover {
-    color: white;
-    border: 1px solid #7655d9;
-    filter: brightness(1.04);
-}
+
+/* Dividers */
 hr {
     border-color: #e0e6f2;
 }
-div[data-testid="stAlert"] {
-    border-radius: 12px;
-}
-div[data-testid="stForm"] {
-    background: rgba(255,255,255,0.75);
-    border: 1px solid #e1e6f2;
-    padding: 20px;
-    border-radius: 18px;
-}
+
 </style>
 """, unsafe_allow_html=True)
 
