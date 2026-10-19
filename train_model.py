@@ -166,7 +166,11 @@ results_df.to_csv("results/model_comparison.csv", index=False)
 best_name = results_df.iloc[0]["Model"]
 best_pipeline = trained_pipelines[best_name]
 
-joblib.dump(best_pipeline, "models/credit_scoring_model.joblib")
+joblib.dump(
+    best_pipeline,
+    "models/credit_scoring_model.joblib",
+    compress=3
+)
 
 with open("models/model_info.json", "w") as file:
     json.dump({
